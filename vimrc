@@ -24,6 +24,8 @@ Bundle 'The-NERD-tree'
 Bundle 'YankRing.vim'
 Bundle 'mbbill/fencview'
 Bundle 'The-NERD-Commenter'
+Bundle 'asins/vimcdoc'
+Bundle 'chusiang/vim-sdcv'
 "Bundle 'fcitx.vim'
 "Bundle 'davidhalter/jedi-vim'
 
