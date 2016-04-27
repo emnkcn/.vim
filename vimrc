@@ -3,31 +3,32 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
-"Bundle 'CCTree'
-"Bundle 'echofunc.vim'
-Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'rdnetto/YCM-Generator'
-"Bundle 'Syntastic'
-Bundle 'vim-scripts/taglist.vim'
-"Bundle 'snipMate'
-"Bundle 'SuperTab-continued.'
-"Bundle 'snippets.vim'
-"Bundle 'c.vim'
-Bundle 'a.vim'
-Bundle 'Colour-Sampler-Pack'
-Bundle 'bufexplorer.zip'
-Bundle 'The-NERD-tree'
-Bundle 'YankRing.vim'
-Bundle 'mbbill/fencview'
-Bundle 'The-NERD-Commenter'
-Bundle 'asins/vimcdoc'
-Bundle 'chusiang/vim-sdcv'
-"Bundle 'fcitx.vim'
-"Bundle 'davidhalter/jedi-vim'
+"Plugin 'CCTree'
+"Plugin 'echofunc.vim'
+Plugin 'VundleVim/Vundle.vim'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'rdnetto/YCM-Generator'
+"Plugin 'Syntastic'
+Plugin 'vim-scripts/taglist.vim'
+"Plugin 'snipMate'
+"Plugin 'SuperTab-continued.'
+"Plugin 'snippets.vim'
+"Plugin 'c.vim'
+Plugin 'a.vim'
+Plugin 'Colour-Sampler-Pack'
+Plugin 'bufexplorer.zip'
+Plugin 'The-NERD-tree'
+Plugin 'YankRing.vim'
+Plugin 'mbbill/fencview'
+Plugin 'The-NERD-Commenter'
+Plugin 'asins/vimcdoc'
+Plugin 'chusiang/vim-sdcv'
+"Plugin 'fcitx.vim'
+"Plugin 'davidhalter/jedi-vim'
+call vundle#end()
 
 filetype plugin indent on
 let g:vundle_default_git_proto = 'http'
