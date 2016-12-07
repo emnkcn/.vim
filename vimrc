@@ -25,7 +25,7 @@ Plugin 'YankRing.vim'
 Plugin 'mbbill/fencview'
 Plugin 'The-NERD-Commenter'
 Plugin 'asins/vimcdoc'
-Plugin 'chusiang/vim-sdcv'
+"Plugin 'chusiang/vim-sdcv'
 "Plugin 'fcitx.vim'
 "Plugin 'davidhalter/jedi-vim'
 call vundle#end()
@@ -38,10 +38,10 @@ set guifont=Droid\ Sans\ Mono\ 11
 colo desert
 
 set fenc=utf-8
-set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+set fencs=euc-cn,utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
 
 "高亮当前列
-set cuc
+"set cuc
 
 "history文件中需要记录的行数
 set history=100
@@ -115,9 +115,12 @@ set cmdheight=1
 set whichwrap+=<,>,h,l
 
 " 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
-set mouse=a
-set selection=exclusive
-set selectmode=mouse,key
+"set mouse=a
+"set selection=exclusive
+"set selectmode=mouse,key
+
+" 鼠标选择复制（securecrt）
+set mouse=v
 
 " 启动的时候不显示那个援助索马里儿童的提示
 set shortmess=atI
@@ -181,6 +184,7 @@ set shiftwidth=4
 " 不要用空格代替制表符
 autocmd FileType * set noexpandtab
 autocmd FileType python set expandtab
+autocmd FileType cpp set expandtab
 
 "set noexpandtab
 
@@ -221,7 +225,7 @@ let Tlist_File_Fold_Auto_Close = 0
 
 " 不显示开启vim时检查ycm_extra_conf文件的信息
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '/home/arch/.vim/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '$HOME/.vim/ycm_extra_conf.py'
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 " 禁止缓存匹配项,每次都重新生成匹配项
 let g:ycm_cache_omnifunc=0
