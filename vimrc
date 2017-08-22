@@ -42,7 +42,7 @@ set guifont=Droid\ Sans\ Mono\ 11
 colo desert
 
 set fenc=utf-8
-set fencs=euc-cn,utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+set fencs=utf-8,euc-cn,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
 
 "高亮当前列
 "set cuc
@@ -65,6 +65,8 @@ set viminfo+=!
 " 带有如下符号的单词不要被换行分割
 set iskeyword+=_,$,@,%,#,-
 
+" 高亮搜索词
+set hlsearch
 
 " 语法高亮
 syntax on
@@ -189,6 +191,7 @@ set shiftwidth=4
 autocmd FileType * set noexpandtab
 autocmd FileType python set expandtab
 autocmd FileType cpp set expandtab
+autocmd FileType proto set expandtab
 
 "set noexpandtab
 
@@ -257,7 +260,8 @@ nmap <Leader>tn :tabN<CR>
 nmap <Leader>tp :tabp<CR>
 nmap <Leader>a :A<CR>
 nmap <Leader>t :!sdcv <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>m :Man 3 <cword><CR>
+nmap <Leader>m :!man 3 <cword><CR>
+nmap <Leader>j :%!python -m json.tool<CR>
 
 map <F4> :silent! BufExplorer<CR>
 map <F3> :silent! Tlist<CR>
