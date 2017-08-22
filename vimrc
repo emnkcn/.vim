@@ -9,6 +9,9 @@ call vundle#begin()
 "Plugin 'CCTree'
 "Plugin 'echofunc.vim'
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'l9'
+Plugin 'othree/vim-autocomplpop'
+"Plugin 'OmniCppComplete'
 "Plugin 'Valloric/YouCompleteMe'
 "Plugin 'rdnetto/YCM-Generator'
 "Plugin 'Syntastic'
@@ -28,6 +31,7 @@ Plugin 'asins/vimcdoc'
 "Plugin 'chusiang/vim-sdcv'
 "Plugin 'fcitx.vim'
 "Plugin 'davidhalter/jedi-vim'
+Plugin 'uarun/vim-protobuf'
 call vundle#end()
 
 filetype plugin indent on
