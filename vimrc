@@ -1,44 +1,56 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Vundle
+"Plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
 
-"Plugin 'CCTree'
-"Plugin 'echofunc.vim'
-Plugin 'VundleVim/Vundle.vim'
-"Plugin 'Valloric/YouCompleteMe'
-"Plugin 'rdnetto/YCM-Generator'
-"Plugin 'Syntastic'
-Plugin 'vim-scripts/taglist.vim'
-"Plugin 'snipMate'
-"Plugin 'SuperTab-continued.'
-"Plugin 'snippets.vim'
-"Plugin 'c.vim'
-Plugin 'a.vim'
-Plugin 'Colour-Sampler-Pack'
-Plugin 'bufexplorer.zip'
-Plugin 'The-NERD-tree'
-Plugin 'YankRing.vim'
-Plugin 'mbbill/fencview'
-Plugin 'The-NERD-Commenter'
-Plugin 'asins/vimcdoc'
-"Plugin 'chusiang/vim-sdcv'
-"Plugin 'fcitx.vim'
-"Plugin 'davidhalter/jedi-vim'
-call vundle#end()
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+	      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-filetype plugin indent on
-let g:vundle_default_git_proto = 'http'
+call plug#begin('~/.vim/plugged')
+"Plug 'CCTree'
+"Plug 'echofunc.vim'
+"Plug 'VundleVim/Vundle.vim'
+Plug 'vim-scripts/l9'
+Plug 'othree/vim-autocomplpop'
+"Plug 'OmniCppComplete'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'rdnetto/YCM-Generator'
+"Plug 'Syntastic'
+Plug 'vim-scripts/taglist.vim'
+"Plug 'snipMate'
+"Plug 'SuperTab-continued.'
+"Plug 'snippets.vim'
+"Plug 'c.vim'
+Plug 'emnkcn/a.vim'
+Plug 'vim-scripts/Colour-Sampler-Pack'
+Plug 'vim-scripts/bufexplorer.zip'
+Plug 'vim-scripts/The-NERD-tree'
+Plug 'vim-scripts/YankRing.vim'
+Plug 'mbbill/fencview'
+Plug 'vim-scripts/The-NERD-Commenter'
+Plug 'asins/vimcdoc'
+"Plug 'chusiang/vim-sdcv'
+"Plug 'fcitx.vim'
+"Plug 'davidhalter/jedi-vim'
+Plug 'bazelbuild/vim-ft-bzl'
+Plug 'mhinz/vim-signify'
+Plug 'ludovicchabant/vim-gutentags'
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set guifont=Droid\ Sans\ Mono\ 11
 
-colo desert
+"colo desert
 
 set fenc=utf-8
-set fencs=euc-cn,utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+set fencs=utf-8,euc-cn,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+
+"启用OmniCompletion
+set omnifunc=syntaxcomplete#Complete
 
 "高亮当前列
 "set cuc
@@ -61,6 +73,8 @@ set viminfo+=!
 " 带有如下符号的单词不要被换行分割
 set iskeyword+=_,$,@,%,#,-
 
+" 高亮搜索词
+set hlsearch
 
 " 语法高亮
 syntax on
@@ -183,8 +197,15 @@ set shiftwidth=4
 
 " 不要用空格代替制表符
 autocmd FileType * set noexpandtab
+autocmd BufNewFile,BufRead *.proto setfiletype proto
+autocmd FileType proto set expandtab
+autocmd BufNewFile,BufRead BUILD_OF_BLADE setfiletype proto
+autocmd FileType blade set expandtab
+autocmd FileType bzl set expandtab
 autocmd FileType python set expandtab
 autocmd FileType cpp set expandtab
+autocmd FileType c set expandtab
+autocmd FileType javascript set expandtab
 
 "set noexpandtab
 
@@ -200,6 +221,23 @@ set smarttab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags 的设定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set tags=./.tags;,.tags
+
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', 'BLADE_ROOT']
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+plx']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+plx']
+
 "CTags
 "按照名称排序
 let Tlist_Sort_Type = "name"
@@ -253,8 +291,14 @@ nmap <Leader>tn :tabN<CR>
 nmap <Leader>tp :tabp<CR>
 nmap <Leader>a :A<CR>
 nmap <Leader>t :!sdcv <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>m :Man 3 <cword><CR>
+nmap <Leader>m :!man 3 <cword><CR>
+nmap <Leader>j :%!python -m json.tool<CR>
 
 map <F4> :silent! BufExplorer<CR>
 map <F3> :silent! Tlist<CR>
 map <F2> :silent! NERDTreeToggle<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" a.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:alternatePreferCPP = 1
