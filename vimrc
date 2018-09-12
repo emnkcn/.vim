@@ -41,7 +41,6 @@ Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set guifont=Droid\ Sans\ Mono\ 11
 
 "colo desert
