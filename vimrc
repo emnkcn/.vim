@@ -10,15 +10,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-"Plug 'CCTree'
-"Plug 'echofunc.vim'
-"Plug 'VundleVim/Vundle.vim'
 Plug 'vim-scripts/l9'
 Plug 'othree/vim-autocomplpop'
-"Plug 'OmniCppComplete'
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'rdnetto/YCM-Generator'
-"Plug 'Syntastic'
 Plug 'vim-scripts/taglist.vim'
 "Plug 'snipMate'
 "Plug 'SuperTab-continued.'
@@ -38,6 +33,9 @@ Plug 'asins/vimcdoc'
 Plug 'bazelbuild/vim-ft-bzl'
 Plug 'mhinz/vim-signify'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'w0rp/ale'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -70,7 +68,7 @@ set foldmethod=indent
 set viminfo+=!
 
 " 带有如下符号的单词不要被换行分割
-set iskeyword+=_,$,@,%,#,-
+set iskeyword+=_,$,@,%,#
 
 " 高亮搜索词
 set hlsearch
@@ -283,7 +281,6 @@ let g:ycm_filetype_blacklist = {
 nmap <Leader>w :w!<CR>
 nmap <Leader>q :q!<CR>
 nmap <Leader>y :YRShow<CR>
-nmap <Leader>f :FencView<CR>
 nmap <Leader>tn :tabN<CR>
 nmap <Leader>tp :tabp<CR>
 nmap <Leader>a :A<CR>
@@ -291,11 +288,63 @@ nmap <Leader>t :!sdcv <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader>m :!man 3 <cword><CR>
 nmap <Leader>j :%!python -m json.tool<CR>
 
-map <F4> :silent! BufExplorer<CR>
-map <F3> :silent! Tlist<CR>
 map <F2> :silent! NERDTreeToggle<CR>
+map <F3> :silent! Tlist<CR>
+map <F4> :silent! BufExplorer<CR>
+map <F5> :FencView<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " a.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:alternatePreferCPP = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ale
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_linters = {
+\   'c++': ['clang'],
+\   'c': ['clang'],
+\   'python': ['pylint'],
+\}
+let g:ale_fixers = {
+\   'javascript': [
+\       'DoSomething',
+\       'eslint',
+\       {buffer, lines -> filter(lines, 'v:val !=~ ''^\s*//''')},
+\   ],
+\}
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-cpp-enhanced-highlight
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LeaderF
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+"let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 1
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
