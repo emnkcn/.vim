@@ -198,15 +198,13 @@ set shiftwidth=4
 autocmd FileType * set noexpandtab
 autocmd BufNewFile,BufRead *.proto setfiletype proto
 autocmd FileType proto set expandtab
-autocmd BufNewFile,BufRead BUILD_OF_BLADE setfiletype proto
+autocmd BufNewFile,BufRead BUILD_OF_BLADE setfiletype blade
 autocmd FileType blade set expandtab
 autocmd FileType bzl set expandtab
 autocmd FileType python set expandtab
 autocmd FileType cpp set expandtab
 autocmd FileType c set expandtab
 autocmd FileType javascript set expandtab
-
-"set noexpandtab
 
 " 不要换行
 "set nowrap

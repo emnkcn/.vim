@@ -1,2 +1,8 @@
 __pycache__/
 bundle/
+autoload/
+ftdetect/
+indent/
+plugged/
+plugin/
+syntax/
