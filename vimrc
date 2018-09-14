@@ -15,10 +15,6 @@ Plug 'othree/vim-autocomplpop'
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'rdnetto/YCM-Generator'
 Plug 'vim-scripts/taglist.vim'
-"Plug 'snipMate'
-"Plug 'SuperTab-continued.'
-"Plug 'snippets.vim'
-"Plug 'c.vim'
 Plug 'emnkcn/a.vim'
 Plug 'vim-scripts/Colour-Sampler-Pack'
 Plug 'vim-scripts/bufexplorer.zip'
@@ -29,7 +25,6 @@ Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'asins/vimcdoc'
 "Plug 'chusiang/vim-sdcv'
 "Plug 'fcitx.vim'
-"Plug 'davidhalter/jedi-vim'
 Plug 'bazelbuild/vim-ft-bzl'
 Plug 'mhinz/vim-signify'
 Plug 'ludovicchabant/vim-gutentags'
@@ -287,6 +282,7 @@ nmap <Leader>a :A<CR>
 nmap <Leader>t :!sdcv <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader>m :!man 3 <cword><CR>
 nmap <Leader>j :%!python -m json.tool<CR>
+nmap <Leader>g :LeaderfFunctionAll<CR>
 
 map <F2> :silent! NERDTreeToggle<CR>
 map <F3> :silent! Tlist<CR>
@@ -314,6 +310,12 @@ let g:ale_fixers = {
 \       {buffer, lines -> filter(lines, 'v:val !=~ ''^\s*//''')},
 \   ],
 \}
+
+autocmd FileType python noremap <buffer> <F7> :ALEFix<CR>
+let g:ale_fixers = {
+\ 'python': ['add_blank_lines_for_python_control_statements','autopep8','isort','yapf','remove_trailing_lines','trim_whitespace'],
+\}
+
 let g:ale_linters_explicit = 1
 let g:ale_completion_delay = 500
 let g:ale_echo_delay = 20
