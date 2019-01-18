@@ -31,6 +31,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'w0rp/ale'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+Plug 'shirk/vim-gas'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -72,7 +73,7 @@ set hlsearch
 syntax on
 
 " 设置汇编为NASM语法
-let asmsyntax="nasm"
+let asmsyntax="gas"
 
 "设置显示行号
 set number
