@@ -359,3 +359,4 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+nmap <Leader>k :Ack! 
