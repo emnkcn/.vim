@@ -32,6 +32,7 @@ Plug 'w0rp/ale'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 Plug 'shirk/vim-gas'
+Plug 'mileszs/ack.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -351,3 +352,10 @@ let g:Lf_ShowRelativePath = 1
 let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
