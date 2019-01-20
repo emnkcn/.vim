@@ -11,9 +11,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/l9'
-Plug 'othree/vim-autocomplpop'
-"Plug 'Valloric/YouCompleteMe'
-"Plug 'rdnetto/YCM-Generator'
+"Plug 'othree/vim-autocomplpop'
+Plug 'Valloric/YouCompleteMe'
+Plug 'rdnetto/YCM-Generator'
 Plug 'vim-scripts/taglist.vim'
 Plug 'emnkcn/a.vim'
 Plug 'vim-scripts/Colour-Sampler-Pack'
@@ -26,28 +26,47 @@ Plug 'asins/vimcdoc'
 "Plug 'chusiang/vim-sdcv'
 "Plug 'fcitx.vim'
 Plug 'bazelbuild/vim-ft-bzl'
+" Signify (or just Sy) uses the sign column to indicate added, modified and
+" removed lines in a file that is managed by a version control system (VCS).
 Plug 'mhinz/vim-signify'
+" Gutentags is a plugin that takes care of the much needed management of tags
+" files in Vim.
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'w0rp/ale'
+" ALE (Asynchronous Lint Engine) is a plugin for providing linting in
+" Vim 8 while you edit your text files, and acts as a Vim Language
+" Server Protocol client.
+"Plug 'w0rp/ale'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 Plug 'shirk/vim-gas'
+" Run your favorite search tool from Vim, with an enhanced results list.
 Plug 'mileszs/ack.vim'
+" Indent Guides is a plugin for visually displaying indent levels in Vim.
+Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set guifont=Droid\ Sans\ Mono\ 11
 
-"colo desert
+colo desert
 
 set fenc=utf-8
 set fencs=utf-8,euc-cn,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
 
 "启用OmniCompletion
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
 
 "高亮当前列
 "set cuc
+
+" 设置快捷键将选中文本块复制至系统剪贴板
+vnoremap <Leader>y "+y
+
+" 设置快捷键将系统剪贴板内容粘贴至 vim
+nmap <Leader>p "+p
+
+" 让配置变更立即生效
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 "history文件中需要记录的行数
 set history=100
@@ -189,7 +208,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-" 不要用空格代替制表符
+" 空格代替制表符
 autocmd FileType * set noexpandtab
 autocmd BufNewFile,BufRead *.proto setfiletype proto
 autocmd FileType proto set expandtab
@@ -255,21 +274,33 @@ let Tlist_File_Fold_Auto_Close = 0
 
 " 不显示开启vim时检查ycm_extra_conf文件的信息
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '$HOME/.vim/ycm_extra_conf.py'
+"let g:ycm_global_ycm_extra_conf = '$HOME/.vim/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 " 禁止缓存匹配项,每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
-" 开启语义补全
-let g:ycm_seed_identifiers_with_syntax=1	
+"let g:ycm_cache_omnifunc=0
+" 将语言关键词加入符号补全数据库
+"let g:ycm_seed_identifiers_with_syntax=1
 "在注释输入中也能补全
 let g:ycm_complete_in_comments = 1
 "在字符串输入中也能补全
 let g:ycm_complete_in_strings = 1
 " 设置在下面几种格式的文件上屏蔽ycm
 let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'nerdtree' : 1,
-      \}
+	  \ 'tagbar' : 1,
+	  \ 'nerdtree' : 1,
+	  \}
+" 触发语义补全
+let g:ycm_key_invoke_completion = '<c-n>'
+let g:ycm_min_num_of_chars_for_completion = 4
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+" 文件类型白名单
+"let g:ycm_filetype_whitelist = {
+"\ "c":1,
+"\ "cpp":1,
+"\ "sh":1,
+"\ "zsh":1,
+"\ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts
@@ -301,8 +332,8 @@ let g:alternatePreferCPP = 1
 " ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
-\   'c++': ['clang'],
-\   'c': ['clang'],
+\   'c++': ['clangtidy'],
+\   'c': ['cquery'],
 \   'python': ['pylint'],
 \}
 let g:ale_fixers = {
@@ -329,8 +360,6 @@ let g:airline#extensions#ale#enabled = 1
 
 let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
 let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-cpp-enhanced-highlight
@@ -360,3 +389,10 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 nmap <Leader>k :Ack! 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Indent
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indent_guides_enable_on_vim_startup = 1
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
