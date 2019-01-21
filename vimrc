@@ -165,7 +165,7 @@ set scrolloff=3
 set novisualbell
 
 " 状态行显示的内容（包括文件类型和解码）
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{gutentags#statusline()}
 
 " 总是显示状态行
 set laststatus=2
@@ -213,10 +213,16 @@ set smarttab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags 的设定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set tags=./.tags;,.tags
+" It tells Vim to look for a tags file in the directory of the current file as
+" well as in the working directory, and up, and up, and…
+"set tags=./tags;,tags;
 
+set tags+=~/.cache/tags/comm.tags
+set tags+=~/.cache/tags/include.tags
+set tags+=~/.cache/tags/wxaapp.tags
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', 'BLADE_ROOT']
+let g:gutentags_exclude_filetypes = ['.pb.cc', '.pb.h']
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
@@ -226,9 +232,10 @@ let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 
 " 配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+plx']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+plx']
+let g:gutentags_ctags_extra_args += ['--exclude=sk_mm*']
 
 "CTags
 "按照名称排序
@@ -241,7 +248,7 @@ let Tlist_Sort_Type = "name"
 "let Tlist_Compart_Format = 1
 
 "如果只有一个buffer，kill窗口也kill掉buffer
-let Tlist_Exist_OnlyWindow = 0
+let Tlist_Exist_OnlyWindow = 1
 
 "不要关闭其他文件的tags
 let Tlist_File_Fold_Auto_Close = 0
@@ -359,4 +366,5 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
-nmap <Leader>k :Ack! 
+nmap <Leader>k :Ack! <cword><CR>
+
