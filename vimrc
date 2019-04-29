@@ -12,8 +12,8 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/l9'
 "Plug 'othree/vim-autocomplpop'
-Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'rdnetto/YCM-Generator'
 Plug 'vim-scripts/taglist.vim'
 Plug 'emnkcn/a.vim'
 Plug 'vim-scripts/Colour-Sampler-Pack'
