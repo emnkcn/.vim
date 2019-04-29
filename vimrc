@@ -43,6 +43,7 @@ Plug 'shirk/vim-gas'
 Plug 'mileszs/ack.vim'
 " Indent Guides is a plugin for visually displaying indent levels in Vim.
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'ekalinin/Dockerfile.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
