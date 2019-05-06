@@ -12,7 +12,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/l9'
 "Plug 'othree/vim-autocomplpop'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator'
 Plug 'vim-scripts/taglist.vim'
 Plug 'emnkcn/a.vim'
@@ -42,7 +42,8 @@ Plug 'shirk/vim-gas'
 " Run your favorite search tool from Vim, with an enhanced results list.
 Plug 'mileszs/ack.vim'
 " Indent Guides is a plugin for visually displaying indent levels in Vim.
-Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'nathanaelkane/vim-indent-guides'
+Plug 'sickill/vim-monokai'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -237,11 +238,9 @@ set smarttab
 "set tags=./tags;,tags;
 
 set tags+=~/.cache/tags/comm.tags
-set tags+=~/.cache/tags/include.tags
-set tags+=~/.cache/tags/wxaapp.tags
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', 'BLADE_ROOT']
-let g:gutentags_exclude_filetypes = ['.pb.cc', '.pb.h']
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', 'BLADE_ROOT', 'BUILD']
+let g:gutentags_exclude_filetypes = ['*.pb.cc', '*.pb.h', '*testimpl_pb.*', 'sk_*', 'sm_*']
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
@@ -251,10 +250,11 @@ let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 
 " 配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q', '--languages=c,c++,protobuf']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+plx']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+plx']
-let g:gutentags_ctags_extra_args += ['--exclude=sk_mm*']
+let g:gutentags_ctags_extra_args += ['--protobuf-kinds=+m']
+let g:gutentags_ctags_extra_args += ['--exclude=sk_mm*', '--exclude=/data/mm64*', '--exclude=/data1/mm64*', '--exclude=*mmbizwxaapp/compiler/*']
 
 "CTags
 "按照名称排序
@@ -282,7 +282,7 @@ let Tlist_File_Fold_Auto_Close = 0
 " 不显示开启vim时检查ycm_extra_conf文件的信息
 let g:ycm_confirm_extra_conf = 0
 "let g:ycm_global_ycm_extra_conf = '$HOME/.vim/ycm_extra_conf.py'
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
+"let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 " 禁止缓存匹配项,每次都重新生成匹配项
 "let g:ycm_cache_omnifunc=0
@@ -298,7 +298,7 @@ let g:ycm_filetype_blacklist = {
 	  \ 'nerdtree' : 1,
 	  \}
 " 触发语义补全
-let g:ycm_key_invoke_completion = '<c-n>'
+let g:ycm_key_invoke_completion = '<c-z>'
 let g:ycm_min_num_of_chars_for_completion = 4
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " 文件类型白名单
