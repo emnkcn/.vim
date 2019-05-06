@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/l9'
 "Plug 'othree/vim-autocomplpop'
 "Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator'
+"Plug 'rdnetto/YCM-Generator'
 Plug 'vim-scripts/taglist.vim'
 Plug 'emnkcn/a.vim'
 Plug 'vim-scripts/Colour-Sampler-Pack'
@@ -44,6 +44,7 @@ Plug 'mileszs/ack.vim'
 " Indent Guides is a plugin for visually displaying indent levels in Vim.
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'sickill/vim-monokai'
+Plug 'ekalinin/Dockerfile.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
