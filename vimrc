@@ -32,6 +32,7 @@ Plug 'mhinz/vim-signify'
 " Gutentags is a plugin that takes care of the much needed management of tags
 " files in Vim.
 Plug 'ludovicchabant/vim-gutentags'
+" Plug 'skywind3000/gutentags_plus'
 " ALE (Asynchronous Lint Engine) is a plugin for providing linting in
 " Vim 8 while you edit your text files, and acts as a Vim Language
 " Server Protocol client.
@@ -186,7 +187,7 @@ set scrolloff=3
 set novisualbell
 
 " 状态行显示的内容（包括文件类型和解码）
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{gutentags#statusline()}
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{gutentags#statusline('[',']')}
 
 " 总是显示状态行
 set laststatus=2
@@ -255,7 +256,15 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q', '--languag
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+plx']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+plx']
 let g:gutentags_ctags_extra_args += ['--protobuf-kinds=+m']
-let g:gutentags_ctags_extra_args += ['--exclude=sk_mm*', '--exclude=/data/mm64*', '--exclude=/data1/mm64*', '--exclude=*mmbizwxaapp/compiler/*']
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+" enable gtags module
+"let g:gutentags_modules = ['ctags', 'gtags_cscope']
+
+" change focus to quickfix window after search (optional).
+"let g:gutentags_plus_switch = 1
+
+let g:gutentags_define_advanced_commands = 1
 
 "CTags
 "按照名称排序
