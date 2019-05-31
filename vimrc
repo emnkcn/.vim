@@ -95,7 +95,7 @@ set hlsearch
 " 语法高亮
 syntax on
 
-" 设置汇编为NASM语法
+" 设置汇编语法
 let asmsyntax="gas"
 
 "设置显示行号
