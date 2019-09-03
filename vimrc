@@ -46,6 +46,9 @@ Plug 'mileszs/ack.vim'
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'sickill/vim-monokai'
 Plug 'ekalinin/Dockerfile.vim'
+Plug 'zxqfl/tabnine-vim'
+" This plugin formats your code with specific coding style using clang-format.
+Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -204,12 +207,12 @@ set smartindent
 " 使用C样式的缩进
 set cindent
 
-" 制表符为4
-set tabstop=4
+" 制表符为2
+set tabstop=2
 
 " 统一缩进为4
-set softtabstop=4
-set shiftwidth=4
+set softtabstop=2
+set shiftwidth=2
 
 " 空格代替制表符
 autocmd FileType * set noexpandtab
@@ -413,3 +416,22 @@ nmap <Leader>k :Ack! <cword><CR>
 let g:indent_guides_enable_on_vim_startup = 1
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" clang-format
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"base style. llvm, google, chromium, mozilla is supported
+let g:clang_format#code_style = "google"
+"Coding style options as dictionary
+let g:clang_format#style_options = {
+    \ "ColumnLimit": 120}
+"When this variable's value is 1, vim-clang-format automatically detects the style file like .clang-format or _clang-format and applies the style to formatting.
+let g:clang_format#detect_style_file = 1
+"When the value is 1, a current buffer is automatically formatted on saving the buffer. Formatting is executed on BufWritePre event.
+"let g:clang_format#auto_format = 1
+"When the value is 1, inserted lines are automatically formatted on leaving insert mode. Formatting is executed on InsertLeave event.
+"let g:clang_format#auto_format_on_insert_leave = 1
+
+" map to <Leader>cf
+autocmd FileType c,cpp,objc,protobuf nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc,protobuf vnoremap <buffer><Leader>cf :ClangFormat<CR>
