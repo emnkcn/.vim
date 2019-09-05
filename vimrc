@@ -49,6 +49,7 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'zxqfl/tabnine-vim'
 " This plugin formats your code with specific coding style using clang-format.
 Plug 'rhysd/vim-clang-format'
+Plug 'kana/vim-operator-user'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -225,6 +226,7 @@ autocmd FileType python set expandtab
 autocmd FileType cpp set expandtab
 autocmd FileType c set expandtab
 autocmd FileType javascript set expandtab
+autocmd FileType vim set expandtab
 
 " 不要换行
 "set nowrap
@@ -424,7 +426,11 @@ hi IndentGuidesEven ctermbg=darkgrey
 let g:clang_format#code_style = "google"
 "Coding style options as dictionary
 let g:clang_format#style_options = {
-    \ "ColumnLimit": 120}
+    \ "ColumnLimit": 120,
+    \ "AlignAfterOpenBracket": "AlwaysBreak",
+    \ "BinPackParameters": "false",
+    \ "AllowAllParametersOfDeclarationOnNextLine": "false",
+    \ "AllowShortFunctionsOnASingleLine": "false"}
 "When this variable's value is 1, vim-clang-format automatically detects the style file like .clang-format or _clang-format and applies the style to formatting.
 let g:clang_format#detect_style_file = 1
 "When the value is 1, a current buffer is automatically formatted on saving the buffer. Formatting is executed on BufWritePre event.
@@ -433,5 +439,7 @@ let g:clang_format#detect_style_file = 1
 "let g:clang_format#auto_format_on_insert_leave = 1
 
 " map to <Leader>cf
-autocmd FileType c,cpp,objc,protobuf nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc,protobuf vnoremap <buffer><Leader>cf :ClangFormat<CR>
+autocmd FileType c,cpp,objc,proto nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc,proto vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" if you install vim-operator-user
+autocmd FileType c,cpp,objc,proto map <buffer> = <Plug>(operator-clang-format)
