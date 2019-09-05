@@ -21,7 +21,9 @@ Plug 'vim-scripts/bufexplorer.zip'
 Plug 'vim-scripts/The-NERD-tree'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'mbbill/fencview'
-Plug 'vim-scripts/The-NERD-Commenter'
+"Plug 'vim-scripts/The-NERD-Commenter'
+" Comment functions so powerful—no comment necessary.
+Plug 'scrooloose/nerdcommenter'
 Plug 'asins/vimcdoc'
 "Plug 'chusiang/vim-sdcv'
 "Plug 'fcitx.vim'
@@ -337,7 +339,6 @@ nmap <Leader>a :A<CR>
 nmap <Leader>t :!sdcv <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader>m :!man 3 <cword><CR>
 nmap <Leader>j :%!python -m json.tool<CR>
-nmap <Leader>g :LeaderfFunctionAll<CR>
 
 map <F2> :silent! NERDTreeToggle<CR>
 map <F3> :silent! Tlist<CR>
@@ -395,15 +396,21 @@ let g:cpp_experimental_template_highlight = 1
 " LeaderF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-"let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', 'BLADE_ROOT']
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight = 0.30
 let g:Lf_CacheDirectory = expand('~/.vim/cache')
 let g:Lf_ShowRelativePath = 1
 let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+let g:Lf_PreviewResult = {'Function':1, 'BufTag':1}
+let g:Lf_WindowPosition = 'left'
 
+nnoremap <Leader>fg :LeaderfFunctionAll<CR>
+nnoremap <Leader>ff :LeaderfFile<CR>
+nnoremap <Leader>ft :LeaderfBufTag<CR>
+nnoremap <Leader>fb :LeaderfBufferAll<CR>
+nnoremap <Leader>fm :LeaderfMruCwd<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ack
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
