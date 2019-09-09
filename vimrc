@@ -48,13 +48,18 @@ Plug 'mileszs/ack.vim'
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'sickill/vim-monokai'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'zxqfl/tabnine-vim'
+" TabNine uses deep learning to help you write code faster.
+"Plug 'zxqfl/tabnine-vim'
 " This plugin formats your code with specific coding style using clang-format.
 Plug 'rhysd/vim-clang-format'
 Plug 'kana/vim-operator-user'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('nvim')
+    let g:python3_host_prog = '/usr/local/bin/python3'
+endif
+
 set guifont=Droid\ Sans\ Mono\ 11
 
 colo desert
@@ -404,9 +409,9 @@ let g:Lf_ShowRelativePath = 1
 let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewResult = {'Function':1, 'BufTag':1}
-let g:Lf_WindowPosition = 'left'
+let g:Lf_WindowPosition = 'bottom'
 
-nnoremap <Leader>fg :LeaderfFunctionAll<CR>
+nnoremap <Leader>fg :LeaderfFunction<CR>
 nnoremap <Leader>ff :LeaderfFile<CR>
 nnoremap <Leader>ft :LeaderfBufTag<CR>
 nnoremap <Leader>fb :LeaderfBufferAll<CR>
