@@ -53,6 +53,9 @@ Plug 'ekalinin/Dockerfile.vim'
 " This plugin formats your code with specific coding style using clang-format.
 Plug 'rhysd/vim-clang-format'
 Plug 'kana/vim-operator-user'
+" Fugitive is the premiere Vim plugin for Git. Or maybe it's the premiere Git plugin for Vim? Either way, it's "so awesome, it should be illegal". That's why it's called Fugitive.
+Plug 'tpope/vim-fugitive'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -92,7 +95,8 @@ set confirm
 set hidden
 
 " 自动折叠
-set foldmethod=indent
+" set foldmethod=syntax
+" set foldlevelstart=99
 
 " 保存全局变量
 set viminfo+=!
@@ -188,7 +192,8 @@ set nohlsearch
 set incsearch
 
 " 输入:set list命令是应该显示些啥？
-set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
+" set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
+set listchars=tab:\ \ ,trail:.,extends:>,precedes:<
 set list
 
 " 光标移动到buffer的顶部和底部时保持3行距离
@@ -218,7 +223,7 @@ set cindent
 " 制表符为2
 set tabstop=2
 
-" 统一缩进为4
+" 统一缩进为2
 set softtabstop=2
 set shiftwidth=2
 
@@ -350,6 +355,11 @@ map <F3> :silent! Tlist<CR>
 map <F4> :silent! BufExplorer<CR>
 map <F5> :FencView<CR>
 
+:map [[ ?{<CR>w99[{
+:map ][ /}<CR>b99]}
+:map ]] j0[[%/{<CR>
+:map [] k$][%?}<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " a.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -455,3 +465,60 @@ autocmd FileType c,cpp,objc,proto nnoremap <buffer><Leader>cf :<C-u>ClangFormat<
 autocmd FileType c,cpp,objc,proto vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " if you install vim-operator-user
 autocmd FileType c,cpp,objc,proto map <buffer> = <Plug>(operator-clang-format)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" coc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" set the select color of vim 
+hi IncSearch term=standout ctermfg=0 ctermbg=3
+hi CursorColumn term=standout ctermfg=0 ctermbg=3
+hi StatusLine term=standout ctermfg=0 ctermbg=3
+set number
+set nocompatible
+set backspace=indent,eol,start
+set hidden
+set cmdheight=2
+set updatetime=300
+
+set laststatus=2
+autocmd FileType json syntax match Comment +\/\/.\+$+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+nmap <silent>fm <Plug>(coc-format) 
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json,cc,c++ setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
