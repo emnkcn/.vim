@@ -3,7 +3,7 @@
         "ccls": {
             "command": "ccls",
             "args": ["--log-file=/tmp/ccls.log"],
-            "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+            "filetypes": ["c", "cpp"],
             "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
             "initializationOptions": {
                 "cache": {
@@ -15,7 +15,10 @@
                 "index": {
 									"trackDependency": 1 ,
 									"initialBlacklist": ["."]
-                }
+                },
+								"highlight": {
+									"lsRanges": true
+								}
             }
         }
     },

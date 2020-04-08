@@ -40,7 +40,7 @@ Plug 'ludovicchabant/vim-gutentags'
 " Server Protocol client.
 "Plug 'w0rp/ale'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'shirk/vim-gas'
 " Run your favorite search tool from Vim, with an enhanced results list.
 Plug 'mileszs/ack.vim'
@@ -56,6 +56,18 @@ Plug 'kana/vim-operator-user'
 " Fugitive is the premiere Vim plugin for Git. Or maybe it's the premiere Git plugin for Vim? Either way, it's "so awesome, it should be illegal". That's why it's called Fugitive.
 Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" vim-lsp-cxx-highlight is a vim plugin that provides C/C++/ObjC semantic
+" highlighting using the language server protocol.
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+" Deoplete is the abbreviation of "dark powered neo-completion". It provides
+" an extensible and asynchronous completion framework for neovim/Vim8.
+"if has('nvim')
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+  "Plug 'Shougo/deoplete.nvim'
+  "Plug 'roxma/nvim-yarp'
+  "Plug 'roxma/vim-hug-neovim-rpc'
+"endif
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -370,17 +382,32 @@ let g:alternatePreferCPP = 1
 " ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
-\   'c++': ['clangtidy'],
-\   'c': ['cquery'],
-\   'python': ['pylint'],
-\}
+      \   'c++': ['clangtidy'],
+      \   'c': ['cquery'],
+      \   'python': ['pylint'],
+      \}
 let g:ale_fixers = {
-\   'javascript': [
-\       'DoSomething',
-\       'eslint',
-\       {buffer, lines -> filter(lines, 'v:val !=~ ''^\s*//''')},
-\   ],
-\}
+      \   'javascript': [
+      \       'DoSomething',
+      \       'eslint',
+      \       {buffer, lines -> filter(lines, 'v:val !=~ ''^\s*//''')},
+      \   ],
+      \}
+let g:ale_cpp_ccls_init_options = {
+      \   'cache': {
+      \       'directory': '.ccls-cache'
+      \   },
+      \   'clang': {
+      \       'resourceDir': '/home/qspace/tools/code_complete/clang/lib/clang/11.0.0'
+      \   },
+      \   'index': {
+      \				'trackDependency': 1 ,
+      \				'initialBlacklist': ['.']
+      \   },
+      \		'highlight': {
+      \				'lsRanges': 1
+      \		}
+      \ }
 
 autocmd FileType python noremap <buffer> <F7> :ALEFix<CR>
 let g:ale_fixers = {
@@ -396,8 +423,14 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:airline#extensions#ale#enabled = 1
 
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
+"let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+"let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
+let g:ale_completion_enabled = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" deoplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:deoplete#enable_at_startup = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-cpp-enhanced-highlight
@@ -499,9 +532,8 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-nmap <silent>fm <Plug>(coc-format) 
+nmap <leader>m  <Plug>(coc-format-selected)
+nmap <silent>mm <Plug>(coc-format) 
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
