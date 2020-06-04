@@ -12,8 +12,6 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/l9'
 "Plug 'othree/vim-autocomplpop'
-"Plug 'Valloric/YouCompleteMe'
-"Plug 'rdnetto/YCM-Generator'
 Plug 'vim-scripts/taglist.vim'
 Plug 'emnkcn/a.vim'
 Plug 'vim-scripts/Colour-Sampler-Pack'
@@ -55,10 +53,10 @@ Plug 'rhysd/vim-clang-format'
 Plug 'kana/vim-operator-user'
 " Fugitive is the premiere Vim plugin for Git. Or maybe it's the premiere Git plugin for Vim? Either way, it's "so awesome, it should be illegal". That's why it's called Fugitive.
 Plug 'tpope/vim-fugitive'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " vim-lsp-cxx-highlight is a vim plugin that provides C/C++/ObjC semantic
 " highlighting using the language server protocol.
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
 " Deoplete is the abbreviation of "dark powered neo-completion". It provides
 " an extensible and asynchronous completion framework for neovim/Vim8.
 "if has('nvim')
@@ -232,12 +230,12 @@ set smartindent
 " 使用C样式的缩进
 set cindent
 
-" 制表符为2
-set tabstop=2
+" 制表符为4
+set tabstop=4
 
-" 统一缩进为2
-set softtabstop=2
-set shiftwidth=2
+" 统一缩进为4
+set softtabstop=4
+set shiftwidth=4
 
 " 空格代替制表符
 autocmd FileType * set noexpandtab
@@ -315,50 +313,13 @@ let Tlist_File_Fold_Auto_Close = 0
 "let Tlist_Enable_Fold_Column = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" YouCompleteMe 的设定
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" 不显示开启vim时检查ycm_extra_conf文件的信息
-let g:ycm_confirm_extra_conf = 0
-"let g:ycm_global_ycm_extra_conf = '$HOME/.vim/ycm_extra_conf.py'
-"let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
-let g:ycm_server_python_interpreter = '/usr/bin/python3'
-" 禁止缓存匹配项,每次都重新生成匹配项
-"let g:ycm_cache_omnifunc=0
-" 将语言关键词加入符号补全数据库
-"let g:ycm_seed_identifiers_with_syntax=1
-"在注释输入中也能补全
-let g:ycm_complete_in_comments = 1
-"在字符串输入中也能补全
-let g:ycm_complete_in_strings = 1
-" 设置在下面几种格式的文件上屏蔽ycm
-let g:ycm_filetype_blacklist = {
-	  \ 'tagbar' : 1,
-	  \ 'nerdtree' : 1,
-	  \}
-" 触发语义补全
-let g:ycm_key_invoke_completion = '<c-z>'
-let g:ycm_min_num_of_chars_for_completion = 4
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" 文件类型白名单
-"let g:ycm_filetype_whitelist = {
-"\ "c":1,
-"\ "cpp":1,
-"\ "sh":1,
-"\ "zsh":1,
-"\ }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nmap <Leader>w :w!<CR>
-nmap <Leader>q :q!<CR>
 nmap <Leader>y :YRShow<CR>
 nmap <Leader>tn :tabN<CR>
 nmap <Leader>tp :tabp<CR>
 nmap <Leader>a :A<CR>
-nmap <Leader>t :!sdcv <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader>m :!man 3 <cword><CR>
 nmap <Leader>j :%!python -m json.tool<CR>
 
@@ -367,10 +328,10 @@ map <F3> :silent! Tlist<CR>
 map <F4> :silent! BufExplorer<CR>
 map <F5> :FencView<CR>
 
-:map [[ ?{<CR>w99[{
-:map ][ /}<CR>b99]}
-:map ]] j0[[%/{<CR>
-:map [] k$][%?}<CR>
+":map [[ ?{<CR>w99[{
+":map ][ /}<CR>b99]}
+":map ]] j0[[%/{<CR>
+":map [] k$][%?}<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " a.vim
@@ -459,6 +420,7 @@ nnoremap <Leader>ff :LeaderfFile<CR>
 nnoremap <Leader>ft :LeaderfBufTag<CR>
 nnoremap <Leader>fb :LeaderfBufferAll<CR>
 nnoremap <Leader>fm :LeaderfMruCwd<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ack
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -484,6 +446,8 @@ let g:clang_format#style_options = {
     \ "ColumnLimit": 120,
     \ "AlignAfterOpenBracket": "AlwaysBreak",
     \ "BinPackParameters": "false",
+    \ "BreakBeforeBraces": "Allman",
+    \ "IndentWidth": 4,
     \ "AllowAllParametersOfDeclarationOnNextLine": "false",
     \ "AllowShortFunctionsOnASingleLine": "false"}
 "When this variable's value is 1, vim-clang-format automatically detects the style file like .clang-format or _clang-format and applies the style to formatting.
@@ -498,59 +462,3 @@ autocmd FileType c,cpp,objc,proto nnoremap <buffer><Leader>cf :<C-u>ClangFormat<
 autocmd FileType c,cpp,objc,proto vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " if you install vim-operator-user
 autocmd FileType c,cpp,objc,proto map <buffer> = <Plug>(operator-clang-format)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" coc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" set the select color of vim 
-hi IncSearch term=standout ctermfg=0 ctermbg=3
-hi CursorColumn term=standout ctermfg=0 ctermbg=3
-hi StatusLine term=standout ctermfg=0 ctermbg=3
-set number
-set nocompatible
-set backspace=indent,eol,start
-set hidden
-set cmdheight=2
-set updatetime=300
-
-set laststatus=2
-autocmd FileType json syntax match Comment +\/\/.\+$+
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-nmap <leader>m  <Plug>(coc-format-selected)
-nmap <silent>mm <Plug>(coc-format) 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json,cc,c++ setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
