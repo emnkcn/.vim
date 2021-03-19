@@ -15,30 +15,26 @@ Plug 'vim-scripts/l9'
 Plug 'vim-scripts/taglist.vim'
 Plug 'emnkcn/a.vim'
 Plug 'vim-scripts/Colour-Sampler-Pack'
-Plug 'vim-scripts/bufexplorer.zip'
-Plug 'vim-scripts/The-NERD-tree'
+"Plug 'vim-scripts/bufexplorer.zip'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'mbbill/fencview'
-"Plug 'vim-scripts/The-NERD-Commenter'
 " Comment functions so powerful—no comment necessary.
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
+" The NERDTree is a file system explorer for the Vim editor.
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'asins/vimcdoc'
 "Plug 'chusiang/vim-sdcv'
 "Plug 'fcitx.vim'
-Plug 'bazelbuild/vim-ft-bzl'
+"Plug 'bazelbuild/vim-ft-bzl'
 " Signify (or just Sy) uses the sign column to indicate added, modified and
 " removed lines in a file that is managed by a version control system (VCS).
 Plug 'mhinz/vim-signify'
 " Gutentags is a plugin that takes care of the much needed management of tags
 " files in Vim.
 Plug 'ludovicchabant/vim-gutentags'
-" Plug 'skywind3000/gutentags_plus'
-" ALE (Asynchronous Lint Engine) is a plugin for providing linting in
-" Vim 8 while you edit your text files, and acts as a Vim Language
-" Server Protocol client.
-"Plug 'w0rp/ale'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'shirk/vim-gas'
 " Run your favorite search tool from Vim, with an enhanced results list.
 Plug 'mileszs/ack.vim'
@@ -53,7 +49,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'kana/vim-operator-user'
 " Fugitive is the premiere Vim plugin for Git. Or maybe it's the premiere Git plugin for Vim? Either way, it's "so awesome, it should be illegal". That's why it's called Fugitive.
 Plug 'tpope/vim-fugitive'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " vim-lsp-cxx-highlight is a vim plugin that provides C/C++/ObjC semantic
 " highlighting using the language server protocol.
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -77,6 +73,7 @@ set guifont=Droid\ Sans\ Mono\ 11
 
 colo desert
 
+set encoding=UTF-8
 set fenc=utf-8
 set fencs=utf-8,euc-cn,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
 
@@ -282,10 +279,10 @@ let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 
 " 配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q', '--languages=c,c++,protobuf']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+plx']
+let g:gutentags_ctags_extra_args = ['--fields=+aefinzrRS', '--extras=+qr', '--languages=c,c++,protobuf']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+plxDAZ']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+plx']
-let g:gutentags_ctags_extra_args += ['--protobuf-kinds=+m']
+let g:gutentags_ctags_extra_args += ['--protobuf-kinds=+pmfeg']
 let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 " enable gtags module
