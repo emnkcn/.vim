@@ -53,7 +53,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'kana/vim-operator-user'
 " Fugitive is the premiere Vim plugin for Git. Or maybe it's the premiere Git plugin for Vim? Either way, it's "so awesome, it should be illegal". That's why it's called Fugitive.
 Plug 'tpope/vim-fugitive'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " vim-lsp-cxx-highlight is a vim plugin that provides C/C++/ObjC semantic
 " highlighting using the language server protocol.
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -105,8 +105,8 @@ set confirm
 set hidden
 
 " 自动折叠
-" set foldmethod=syntax
-" set foldlevelstart=99
+set foldmethod=manual
+"set foldlevelstart=20
 
 " 保存全局变量
 set viminfo+=!
@@ -230,12 +230,12 @@ set smartindent
 " 使用C样式的缩进
 set cindent
 
-" 制表符为4
-set tabstop=4
+" 制表符为2
+set tabstop=2
 
-" 统一缩进为4
-set softtabstop=4
-set shiftwidth=4
+" 统一缩进为2
+set softtabstop=2
+set shiftwidth=2
 
 " 空格代替制表符
 autocmd FileType * set noexpandtab
@@ -259,6 +259,9 @@ set linebreak
 " 在行和段开始处使用制表符
 set smarttab
 
+" 120宽度
+set colorcolumn=120
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags 的设定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -266,7 +269,7 @@ set smarttab
 " well as in the working directory, and up, and up, and…
 "set tags=./tags;,tags;
 
-set tags+=~/.cache/tags/comm.tags
+set tags+=~/.cache/tags/comm.tags;
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', 'BLADE_ROOT', 'BUILD']
 let g:gutentags_exclude_filetypes = ['*.pb.cc', '*.pb.h', '*testimpl_pb.*', 'sk_*', 'sm_*']
@@ -311,6 +314,9 @@ let Tlist_File_Fold_Auto_Close = 0
 
 "" 不要显示折叠树
 "let Tlist_Enable_Fold_Column = 0
+
+" ccls代码补全相关配置
+"source ~/.vim/coc.vimrc
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts
@@ -447,9 +453,17 @@ let g:clang_format#style_options = {
     \ "AlignAfterOpenBracket": "AlwaysBreak",
     \ "BinPackParameters": "false",
     \ "BreakBeforeBraces": "Allman",
-    \ "IndentWidth": 4,
+    \ "IndentWidth": 2,
     \ "AllowAllParametersOfDeclarationOnNextLine": "false",
     \ "AllowShortFunctionsOnASingleLine": "false"}
+
+"let g:clang_format#style_options = {
+"      \ "ColumnLimit": 100,
+"      \ "DerivePointerAlignment":"true",
+"      \ "PointerAlignment":"Left",
+"      \ "SortIncludes":"true",
+"      \ "IncludeBlocks":"Preserve"}
+
 "When this variable's value is 1, vim-clang-format automatically detects the style file like .clang-format or _clang-format and applies the style to formatting.
 let g:clang_format#detect_style_file = 1
 "When the value is 1, a current buffer is automatically formatted on saving the buffer. Formatting is executed on BufWritePre event.
