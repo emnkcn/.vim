@@ -10,15 +10,15 @@
                     "directory": ".ccls-cache"
                 },
                 "clang": {
-                    "resourceDir": "/home/qspace/tools/code_complete/clang/lib/clang/11.0.0"
+                    "resourceDir": "/home/kainniu/workspace/clang+llvm-12.0.1/lib/clang/12.0.1"
                 },
                 "index": {
-									"trackDependency": 1 ,
-									"initialBlacklist": ["."]
+                  "trackDependency": 1 ,
+                  "initialBlacklist": ["."]
                 },
-								"highlight": {
-									"lsRanges": true
-								}
+                "highlight": {
+                  "lsRanges": true
+                }
             }
         }
     },

@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/l9'
 "Plug 'othree/vim-autocomplpop'
 Plug 'vim-scripts/taglist.vim'
+"Plug 'preservim/tagbar'
 Plug 'emnkcn/a.vim'
 Plug 'vim-scripts/Colour-Sampler-Pack'
 "Plug 'vim-scripts/bufexplorer.zip'
@@ -49,7 +50,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'kana/vim-operator-user'
 " Fugitive is the premiere Vim plugin for Git. Or maybe it's the premiere Git plugin for Vim? Either way, it's "so awesome, it should be illegal". That's why it's called Fugitive.
 Plug 'tpope/vim-fugitive'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " vim-lsp-cxx-highlight is a vim plugin that provides C/C++/ObjC semantic
 " highlighting using the language server protocol.
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -199,8 +200,8 @@ set nohlsearch
 set incsearch
 
 " 输入:set list命令是应该显示些啥？
-" set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
-set listchars=tab:\ \ ,trail:.,extends:>,precedes:<
+set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
+"set listchars=tab:\ \ ,trail:.,extends:>,precedes:<
 set list
 
 " 光标移动到buffer的顶部和底部时保持3行距离
@@ -210,7 +211,7 @@ set scrolloff=3
 set novisualbell
 
 " 状态行显示的内容（包括文件类型和解码）
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{gutentags#statusline('[',']')}
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ %{FugitiveStatusline()}\ [POS=%l,%v][%p%%]\ %{gutentags#statusline('[',']')}
 
 " 总是显示状态行
 set laststatus=2
@@ -313,7 +314,7 @@ let Tlist_File_Fold_Auto_Close = 0
 "let Tlist_Enable_Fold_Column = 0
 
 " ccls代码补全相关配置
-"source ~/.vim/coc.vimrc
+source ~/.vim/coc.vimrc
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts
@@ -343,6 +344,13 @@ let g:alternatePreferCPP = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" nerdtree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
@@ -357,21 +365,21 @@ let g:ale_fixers = {
       \       {buffer, lines -> filter(lines, 'v:val !=~ ''^\s*//''')},
       \   ],
       \}
-let g:ale_cpp_ccls_init_options = {
-      \   'cache': {
-      \       'directory': '.ccls-cache'
-      \   },
-      \   'clang': {
-      \       'resourceDir': '/home/qspace/tools/code_complete/clang/lib/clang/11.0.0'
-      \   },
-      \   'index': {
-      \				'trackDependency': 1 ,
-      \				'initialBlacklist': ['.']
-      \   },
-      \		'highlight': {
-      \				'lsRanges': 1
-      \		}
-      \ }
+"let g:ale_cpp_ccls_init_options = {
+"      \   'cache': {
+"      \       'directory': '.ccls-cache'
+"      \   },
+"      \   'clang': {
+"      \       'resourceDir': '/home/qspace/tools/code_complete/clang/lib/clang/11.0.0'
+"      \   },
+"      \   'index': {
+"      \				'trackDependency': 1 ,
+"      \				'initialBlacklist': ['.']
+"      \   },
+"      \		'highlight': {
+"      \				'lsRanges': 1
+"      \		}
+"      \ }
 
 autocmd FileType python noremap <buffer> <F7> :ALEFix<CR>
 let g:ale_fixers = {
@@ -423,6 +431,7 @@ nnoremap <Leader>ff :LeaderfFile<CR>
 nnoremap <Leader>ft :LeaderfBufTag<CR>
 nnoremap <Leader>fb :LeaderfBufferAll<CR>
 nnoremap <Leader>fm :LeaderfMruCwd<CR>
+nnoremap <Leader>fl :LeaderfLineAll<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ack
@@ -447,12 +456,15 @@ let g:clang_format#code_style = "google"
 "Coding style options as dictionary
 let g:clang_format#style_options = {
     \ "ColumnLimit": 120,
+    \ "DerivePointerAlignment": "true",
+    \ "PointerAlignment": "Left",
+    \ "SortIncludes": "true",
+    \ "IncludeBlocks": "Preserve",
     \ "AlignAfterOpenBracket": "AlwaysBreak",
+    \ "IndentPPDirectives": "AfterHash",
+    \
     \ "BinPackParameters": "false",
-    \ "BreakBeforeBraces": "Allman",
-    \ "IndentWidth": 2,
-    \ "AllowAllParametersOfDeclarationOnNextLine": "false",
-    \ "AllowShortFunctionsOnASingleLine": "false"}
+    \ "BreakBeforeBraces": "Allman"}
 
 "let g:clang_format#style_options = {
 "      \ "ColumnLimit": 100,
